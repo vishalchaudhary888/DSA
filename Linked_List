@@ -1,0 +1,136 @@
+public class implementation{
+    public static class Node {//This function is creating the Nodes for the Linked List
+        int data;
+        Node next;
+
+        Node(int data) {
+            this.data = data;
+        }
+    }
+        public static class linkedlist{
+            Node head = null;
+            Node tail = null;
+            int size = 0;
+            void insertAtEnd(int data){//it will help to add the elements in the last of the Linked List
+                Node temp = new Node(data);
+                if(head==null){
+                    head = temp;
+                }
+                else{
+                tail.next = temp;
+                }
+                tail = temp;
+                tail.next = null;
+                size++;
+            }
+            void insertAtStart(int data){//It will help to add the elements int the beginning of the Linked List
+                Node temp = new Node(data);
+                if(head==null){
+                    head = temp;
+                    tail=temp;
+                }
+                else{
+                    temp.next = head;
+                    head = temp;
+                }
+                size++;
+            }
+
+            void insertAt(int idx, int val){//Helps to Insert an element at any given idex
+                Node t = new Node(val);
+                Node temp = head;
+                if(idx==0){
+                    insertAtStart(val);
+                    return;
+                } else if (idx==size){
+                    {
+                        insertAtEnd(val);
+                        return;
+                    }
+                } else if (idx>size||idx<0){
+                    {
+                        System.out.println("Invalid Index!!");
+                        return;
+                    }
+                } else {
+                    for (int i = 0; i < idx - 1; i++) {
+                        temp = temp.next;
+                    }
+                    t.next = temp.next;
+                    temp.next = t;
+                }
+                size++;
+            }
+
+            void getAt(int idx){//This function is helping to get the elements of Linked List at a particular index
+                Node temp = head;
+                if(idx<0||idx>size){
+                    System.out.println("Invalid Index!!");
+                    return;
+                }
+                for(int i=0;i<idx;i++){
+                    temp = temp.next;
+                }
+                System.out.println(temp.data);
+            }
+
+
+            void delete(int idx){
+                Node temp = head;
+                if(idx == 0){
+                    head = head.next;
+                    size--;
+                    return;
+                }
+                for(int i=0; i<idx-1;i++){
+                    temp = temp.next;
+                }
+                temp.next = temp.next.next;
+                temp = tail;
+                size--;
+            }
+
+
+            void display(){//Used to print the Linked List
+                Node temp = head;
+                while(temp!=null){
+                    System.out.print(temp.data+"->");
+                    temp = temp.next;
+                }
+                System.out.println();
+            }
+
+//            int size(){//Used to get to the size of the Linked List
+
+            //Here this function is giving the time complexity O(n) to overcome that istead of using
+            //this function we can increase the size by 1 while adding elements in the beginning or
+            // in the middle or in the last of the Linked List
+//
+//                int count = 0;
+//                Node temp = head;
+//                while(temp!=null){
+//                    count++;
+//                    temp = temp.next;
+//                }
+//                return count;
+//            }
+
+    }
+
+    public static void main(String[] args){
+        linkedlist ll = new linkedlist();
+        ll.insertAtEnd(5);//5
+        ll.insertAtEnd(7);//5->7
+        ll.insertAtEnd(8);//5->7->8
+        ll.insertAtEnd(45);//5->7->8->45
+        ll.insertAtStart(67);//67->5->7->8->45
+        ll.insertAt(5,560);//67->5->45->7->8->45->
+        ll.getAt(4);
+        ll.display();
+        System.out.println(ll.size);
+        ll.delete(2);
+        ll.display();
+        System.out.println(ll.tail.data);
+
+    }
+}
